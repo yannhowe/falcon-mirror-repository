@@ -45,6 +45,8 @@ You can get the instructions and `dockerAPIToken` from the `Cloud Accounts Regis
 helm repo add kpagent-helm https://registry.crowdstrike.com/kpagent-helm
 
 cat << EOF >> kpa-values.yaml
+image:
+  repository: 123456789012.dkr.ecr.ap-southeast-1.amazonaws.com/kpagent
 crowdstrikeConfig:
   clusterName: "clustername"
   enableDebug: "false"
