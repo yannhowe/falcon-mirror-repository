@@ -43,13 +43,20 @@ Use the following to deploy the images in your environment:
 You can get the instructions and `dockerAPIToken` from the `Cloud Accounts Registration -> Kubernetes -> Self-Managed Kubernetes Service` page.
 ```
 helm repo add kpagent-helm https://registry.crowdstrike.com/kpagent-helm
+
+cat << EOF >> kpa-values.yaml
+crowdstrikeConfig:
+  clusterName: "clustername"
+  enableDebug: "false"
+  clientID: "somethingsomething05ec5aaada734d"
+  clientSecret: "somethingsomethingh9qFwKB8ij02fQbMRsdr"
+  env: "us-2"
+  cid: "something4di30382c85d952a0a682e"
+  dockerAPIToken: "SomethingtSACVNF2ghJvruJPnkSN6tSACsz9UH1YfHbwks4t39yjPy4VEan"
+EOF
+
 helm upgrade kpagent kpagent-helm/cs-k8s-protection-agent \
-    --install -n falcon-kubernetes-protection 
-    --create-namespace
-    --set crowdstrikeConfig.clusterName="clustername"
-    --set crowdstrikeConfig.enableDebug="false"
-    --set crowdstrikeConfig.clientID="somethingsomethingh9qFwKB8ij02fQbMRsdr"
-    --set crowdstrikeConfig.env="us-1"
-    --set crowdstrikeConfig.cid="something4di30382c85d952a0a682e"
-    --set crowdstrikeConfig.dockerAPIToken="AKCp8nG6NJsz9UHHPYZ4RLbguaVNF2ghJvruJPnkSN6tSACxLnea1YfHbwks4t39yjPy4VEan"
+    --install -n falcon-kubernetes-protection \
+    --create-namespace \
+    --values kpa-values.yaml
 ```
