@@ -9,15 +9,13 @@ Images are synced daily, existing images are skipped.
 
 # Quickstart
 
-Create destination repositories in your container image registry
+1. Create destination repositories in your container image registry
 - `falcon-sensor`
 - `kpagent`
 
-Fork this repository.
+2. Fork this repository.
 
-Create the following [Repository Secrets](https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-encrypted-secrets-for-your-repository-and-organization-for-github-codespaces#adding-secrets-for-a-repository)
-
-Enable workflows in the repository `Actions` tab
+3. Create the following [Repository Secrets](https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-encrypted-secrets-for-your-repository-and-organization-for-github-codespaces#adding-secrets-for-a-repository)
 
 | Secret  | Description	| Example  	|
 |---	|--- |---	|
@@ -29,6 +27,8 @@ Enable workflows in the repository `Actions` tab
 | YOUR_REGISTRY  	| your destination docker registry | 123456789012.dkr.ecr.ap-southeast-1.amazonaws.com  	|
 | YOUR_REGISTRY_USERNAME  	| your destination docker registry username | AWS  	|
 | YOUR_REGISTRY_PASSWORD  	| your destination docker registry password | yourdockerregistrypassword  	|
+
+4. Enable workflows in the repository `Actions` tab
 
 # Next Steps
 
