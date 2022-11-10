@@ -35,6 +35,7 @@ Images are synced daily, existing images are skipped.
 Use the following to deploy the images in your environment:
 
 ## Falcon Sensor (as a DaemonSet or Sidecar)
+Remember to specify your own `registry.org/image:tag`
 
 - [CrowdStrike Falcon Helm Chart](https://github.com/CrowdStrike/falcon-helm)
 - [Operator](https://github.com/CrowdStrike/falcon-operator)
