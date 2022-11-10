@@ -46,7 +46,7 @@ helm repo add kpagent-helm https://registry.crowdstrike.com/kpagent-helm
 
 cat << EOF >> kpa-values.yaml
 image:
-  repository: 123456789012.dkr.ecr.ap-southeast-1.amazonaws.com/kpagent
+  repository: 123456789012.dkr.ecr.ap-southeast-1.amazonaws.com/kpagent:0.69.3
 crowdstrikeConfig:
   clusterName: "clustername"
   enableDebug: "false"
