@@ -18,6 +18,8 @@ jobs:
       id-token: write
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -29,8 +31,6 @@ jobs:
   copy_images:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
       - name: Login to Crowdstrike registries and Sync images
         env:
           FALCON_CID: ${{ secrets.FALCON_CID }}
