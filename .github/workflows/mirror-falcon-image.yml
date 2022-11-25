@@ -41,7 +41,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: checkoutputs
-        run: echo "$DOCKER_PASSWORD" "$DOCKER_USERNAME" "$REGISTRY"
+        run: echo "$DOCKER_PASSWORD"
       - name: skopeo login to your registry
         run: echo "$DOCKER_PASSWORD" | skopeo login --username  "$DOCKER_USERNAME" --password-stdin "$REGISTRY"
       - name: Login to Crowdstrike registries and Sync images
