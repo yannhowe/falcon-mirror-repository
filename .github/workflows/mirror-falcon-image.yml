@@ -11,7 +11,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  sync_images:
+  sync_images_aws_ecr:
     permissions:
       contents: read
       packages: write
@@ -37,16 +37,6 @@ jobs:
           aws-region: ap-southeast-1
       - name: login-ecr
         uses: aws-actions/amazon-ecr-login@v1  
-      - name: checkvalues env
-        env:
-          YOUR_ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        run: |
-          echo $YOUR_ECR_REGISTRY
-      - name: checkvalues string
-        env:
-          YOUR_ECR_REGISTRY: some.registry.com
-        run: |
-          echo $YOUR_ECR_REGISTRY
       - name: Login to Crowdstrike registries and Sync images with ECR
         env:
           YOUR_ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
