@@ -19,46 +19,16 @@ jobs:
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
-    env:
-      Greeting: Hello
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: AWS ECR
-        # You may pin to the exact commit or the version.
-        # uses: kciter/aws-ecr-action@79255b7c5aa03dbf6d7c46cff2bfd049874cd98d
-        uses: kciter/aws-ecr-action@v4
+      - name: AWS ECR Docker Login
+        # uses: elgohr/ecr-login-action@fe5eda15f68e44bbfef2f14cbb0c167675c50070
+        uses: elgohr/ecr-login-action@v2
         with:
-          # The AWS access key id
-          access_key_id: ${{ secrets.ECR_ACCESS_KEY_ID }}
-          # The AWS secret access key
+          access_key: ${{ secrets.ECR_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.ECR_SECRET_ACCESS_KEY }}
-          # AWS Account ID
-          account_id: ${{ secrets.ECR_AWS_ACCOUNT_ID }}
-          # A role to assume under the account_id account.
-          assume_role: # optional, default is 
-          # Name of your ECR repository
-          repo: falcon-sensor
-          # The AWS region
           region: ap-southeast-1
-          # Set this to true to create the repository if it does not already exist
-          create_repo: true
-          # Set this to true to set a policy on the repository
-          set_repo_policy: # optional
-          # Set this to repository policy statement json file. only used if the set_repo_policy is set to true
-          repo_policy_file: # optional, default is repo-policy.json
-          # Comma-separated string of ECR image tags
-          tags: # optional, default is latest
-          # Name of Dockerfile to use
-          dockerfile: # optional, default is Dockerfile
-          # Extra flags to pass to docker build (see docs.docker.com/engine/reference/commandline/build)
-          extra_build_args: # optional, default is 
-          # Images to use as cache for the docker build (see `--cache-from` argument docs.docker.com/engine/reference/commandline/build)
-          cache_from: # optional, default is 
-          # Path to Dockerfile, defaults to the working directory
-          path: # optional, default is .
-          # Relative path from top-level to script to run before Docker build
-          prebuild_script: # optional
       - name: skopeo login to your registry
         run: echo '${{ secrets.YOUR_REGISTRY_PASSWORD }}' | skopeo login --username  "${{ secrets.YOUR_REGISTRY_USERNAME }}" --password-stdin "${{ secrets.YOUR_REGISTRY }}"
       - name: Login to Crowdstrike registries and Sync images
