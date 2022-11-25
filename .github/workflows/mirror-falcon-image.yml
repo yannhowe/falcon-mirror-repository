@@ -11,26 +11,19 @@ on:
     branches: [ "main" ]
 
 jobs:
-  copy_images:
+  login:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      # This is used to complete the identity challenge
-      # with sigstore/fulcio when running outside of PRs.
-      id-token: write
+    outputs:
+      token: ${{ steps.login.outputs.token }}
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-      - name: AWS ECR Docker Login
-        # uses: elgohr/ecr-login-action@fe5eda15f68e44bbfef2f14cbb0c167675c50070
-        uses: elgohr/ecr-login-action@v2
+      - name: Get token to login to Amazon ECR
+        uses: PhutureCorp/ecr-login-token@v0.8.0
         with:
-          access_key: ${{ secrets.ECR_ACCESS_KEY_ID }}
-          secret_access_key: ${{ secrets.ECR_SECRET_ACCESS_KEY }}
-          region: ap-southeast-1
+          registry: 517716713836.dkr.ecr.ap-southeast-1.amazonaws.com
+          username: ${{ secrets.ECR_ACCESS_KEY_ID }}
+          password: ${{ secrets.ECR_SECRET_ACCESS_KEY }}
       - name: skopeo login to your registry
-        run: echo '${{ secrets.YOUR_REGISTRY_PASSWORD }}' | skopeo login --username  "${{ secrets.YOUR_REGISTRY_USERNAME }}" --password-stdin "${{ secrets.YOUR_REGISTRY }}"
+        run: echo '${{ steps.login_ecr.outputs.token }}' | skopeo login --username  "${{ secrets.YOUR_REGISTRY_USERNAME }}" --password-stdin "${{ secrets.YOUR_REGISTRY }}"
       - name: Login to Crowdstrike registries and Sync images
         env:
           FALCON_CID: ${{ secrets.FALCON_CID }}
@@ -41,5 +34,15 @@ jobs:
           YOUR_REGISTRY: ${{ secrets.YOUR_REGISTRY }}
           YOUR_REGISTRY_USERNAME: ${{ secrets.YOUR_REGISTRY_USERNAME }}
           YOUR_REGISTRY_PASSWORD: ${{ secrets.YOUR_REGISTRY_PASSWORD }}
+  copy_images:
+    runs-on: ubuntu-latest
+    needs: login
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
         run: |
           bash ${{ github.workspace }}/falcon-registries-logon-and-sync.sh
