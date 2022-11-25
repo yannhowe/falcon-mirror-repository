@@ -5,7 +5,11 @@ Simple github workflow to sync the following Crowdstrike Cloud Workload Protecti
 - Falcon Sensor for Linux
 - Kubernetes Protection Agent
 
-Images are synced daily, existing images are skipped.
+Images are synced according to the github scheduled workflow, existing images are skipped.
+
+Documented Registries
+- AWS ECR
+- Generic Docker V2 Registry
 
 # Quickstart
 
@@ -24,11 +28,20 @@ Images are synced daily, existing images are skipped.
 | FALCON_CLIENT_SECRET | Secrete generated with Client ID 	| somethingsomethingh9qFwKB8ij02fQbMRsdr  	|
 | FALCON_CLOUD_API  | API endpoint for your cloud ( us-1 / us-2 / eu-1 / gov-1 ) | (api.crowdstrike.com / api.us-2crowdstrike.com / api.eu-1.crowdstrike.com / api.laggar.gcw.crowdstrike.com )  	|
 | FALCON_CONTAINER_REGISTRY | Your registry endpoint ( us-1 / us-2 / eu-1 / gov-1 )   	| (registry.crowdstrike.com / registry.crowdstrike.com / registry.crowdstrike.com / registry.laggar.gcw.crowdstrike.com )  	|
+
+4. Enable workflows in the repository `Actions` tab
+
+## Docker V2 Registry
+Create the following [Repository Secrets](https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-encrypted-secrets-for-your-repository-and-organization-for-github-codespaces#adding-secrets-for-a-repository)
+
+| Secret  | Description	| Example  	|
+|---	|--- |---	|
 | YOUR_REGISTRY  	| your destination docker registry | 123456789012.dkr.ecr.ap-southeast-1.amazonaws.com  	|
 | YOUR_REGISTRY_USERNAME  	| your destination docker registry username | AWS  	|
 | YOUR_REGISTRY_PASSWORD  	| your destination docker registry password | yourdockerregistrypassword  	|
 
-4. Enable workflows in the repository `Actions` tab
+## AWS ECR 
+If you are syncing to an AWS ECR registry.Set up the [configure-aws-credentials](https://github.com/aws-actions/configure-aws-credentials#assuming-a-role) action. I used [this](https://benoitboure.com/securely-access-your-aws-resources-from-github-actions) guide so the [ECR login action](https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions) can work.
 
 # Next Steps
 
