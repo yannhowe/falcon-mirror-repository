@@ -24,16 +24,6 @@ jobs:
           password: ${{ secrets.ECR_SECRET_ACCESS_KEY }}
       - name: skopeo login to your registry
         run: echo '${{ steps.login_ecr.outputs.token }}' | skopeo login --username  "${{ secrets.YOUR_REGISTRY_USERNAME }}" --password-stdin "${{ secrets.YOUR_REGISTRY }}"
-      - name: Login to Crowdstrike registries and Sync images
-        env:
-          FALCON_CID: ${{ secrets.FALCON_CID }}
-          FALCON_CLIENT_ID: ${{ secrets.FALCON_CLIENT_ID }}
-          FALCON_CLIENT_SECRET: ${{ secrets.FALCON_CLIENT_SECRET }}
-          FALCON_CLOUD_API: ${{ secrets.FALCON_CLOUD_API }}
-          FALCON_CONTAINER_REGISTRY: ${{ secrets.FALCON_CONTAINER_REGISTRY }}
-          YOUR_REGISTRY: ${{ secrets.YOUR_REGISTRY }}
-          YOUR_REGISTRY_USERNAME: ${{ secrets.YOUR_REGISTRY_USERNAME }}
-          YOUR_REGISTRY_PASSWORD: ${{ secrets.YOUR_REGISTRY_PASSWORD }}
   copy_images:
     runs-on: ubuntu-latest
     needs: login
@@ -44,5 +34,15 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+      - name: Login to Crowdstrike registries and Sync images
+        env:
+          FALCON_CID: ${{ secrets.FALCON_CID }}
+          FALCON_CLIENT_ID: ${{ secrets.FALCON_CLIENT_ID }}
+          FALCON_CLIENT_SECRET: ${{ secrets.FALCON_CLIENT_SECRET }}
+          FALCON_CLOUD_API: ${{ secrets.FALCON_CLOUD_API }}
+          FALCON_CONTAINER_REGISTRY: ${{ secrets.FALCON_CONTAINER_REGISTRY }}
+          YOUR_REGISTRY: ${{ secrets.YOUR_REGISTRY }}
+          YOUR_REGISTRY_USERNAME: ${{ secrets.YOUR_REGISTRY_USERNAME }}
+          YOUR_REGISTRY_PASSWORD: ${{ secrets.YOUR_REGISTRY_PASSWORD }}        
         run: |
           bash ${{ github.workspace }}/falcon-registries-logon-and-sync.sh
