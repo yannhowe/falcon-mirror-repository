@@ -28,8 +28,6 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1  
       - name: Check out repository code
         uses: actions/checkout@v3
-#      - name: skopeo login to your registry
-#        run: echo ${{ steps.login-ecr.outputs.docker_password_517716713836_dkr_ecr_ap_southeast_1_amazonaws_com }} | skopeo login --username  ${{ steps.login-ecr.outputs.docker_username_517716713836_dkr_ecr_ap_southeast_1_amazonaws_com }} --password-stdin ${{ steps.login-ecr.outputs.registry }}
       - name: Login to Crowdstrike registries and Sync images
         env:
           FALCON_CID: ${{ secrets.FALCON_CID }}
