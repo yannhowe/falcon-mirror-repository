@@ -19,7 +19,8 @@ jobs:
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
-
+    env:
+      Greeting: Hello
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -29,9 +30,9 @@ jobs:
         uses: kciter/aws-ecr-action@v4
         with:
           # The AWS access key id
-          access_key_id: ${{ secrets.ACCESS_KEY_ID }}
+          access_key_id: ${{ secrets.ECR_ACCESS_KEY_ID }}
           # The AWS secret access key
-          secret_access_key: ${{ secrets.SECRET_ACCESS_KEY }}
+          secret_access_key: ${{ secrets.ECR_SECRET_ACCESS_KEY }}
           # AWS Account ID
           account_id: ${{ secrets.ECR_AWS_ACCOUNT_ID }}
           # A role to assume under the account_id account.
