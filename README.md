@@ -26,8 +26,8 @@ Documented Registries
 | FALCON_CID  	| Copy from the sensor download page  | SOMETHING4DI30382C85D952A0A682E-AE  	|
 | FALCON_CLIENT_ID  | Falcon platform API key with the following scopes: Falcon Images Download (read), Kubernetes Protection (read)	| somethingsomething05ec5aaada734d  	|
 | FALCON_CLIENT_SECRET | Secrete generated with Client ID 	| somethingsomethingh9qFwKB8ij02fQbMRsdr  	|
-| FALCON_CLOUD_API  | API endpoint for your cloud ( us-1 / us-2 / eu-1 / gov-1 ) | (api.crowdstrike.com / api.us-2crowdstrike.com / api.eu-1.crowdstrike.com / api.laggar.gcw.crowdstrike.com )  	|
-| FALCON_CONTAINER_REGISTRY | Your registry endpoint ( us-1 / us-2 / eu-1 / gov-1 )   	| (registry.crowdstrike.com / registry.crowdstrike.com / registry.crowdstrike.com / registry.laggar.gcw.crowdstrike.com )  	|
+| FALCON_CLOUD_API  | API endpoint for your cloud | us-1: api.crowdstrike.com<br /> us-2: api.us-2crowdstrike.com </br> eu-1: api.eu-1.crowdstrike.com</br> gov-1: api.laggar.gcw.crowdstrike.com |
+| FALCON_CONTAINER_REGISTRY | Your registry endpoint |us-1: registry.crowdstrike.com</br>us-2: registry.crowdstrike.com</br>eu-1: registry.crowdstrike.com</br>gov-1: registry.laggar.gcw.crowdstrike.com	|
 
 4. Enable workflows in the repository `Actions` tab
 
