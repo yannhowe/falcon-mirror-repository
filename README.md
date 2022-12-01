@@ -54,7 +54,6 @@ Remember to specify your own `registry.org/image:tag`
 - [Operator](https://github.com/CrowdStrike/falcon-operator)
 
 ## Kubernetes Protection Agent
-You can get the instructions and `dockerAPIToken` from the `Cloud Accounts Registration -> Kubernetes -> Self-Managed Kubernetes Service` page.
 ```
 helm repo add kpagent-helm https://registry.crowdstrike.com/kpagent-helm
 
@@ -68,7 +67,6 @@ crowdstrikeConfig:
   clientSecret: "somethingsomethingh9qFwKB8ij02fQbMRsdr"
   env: "us-2"
   cid: "something4di30382c85d952a0a682e"
-  dockerAPIToken: "SomethingtSACVNF2ghJvruJPnkSN6tSACsz9UH1YfHbwks4t39yjPy4VEan"
 EOF
 
 helm upgrade kpagent kpagent-helm/cs-k8s-protection-agent \
